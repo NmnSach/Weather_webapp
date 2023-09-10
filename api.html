@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="api.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h2><i class="fa-solid fa-location-dot">&nbsp;</i><span id="location"></span></h2>
+            <h6 id="weather"></h6>
+            <h4><span id="temp"></span><sup>o</sup>C</h4>
+            <img src="" alt="" id="icon">
+            <button onclick="windows.location.reload()" class="refresh"><i class="fa-solid fa-rotate"></i></button>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    link="https://api.openweathermap.org/data/2.5/weather?q=delhi&appid=96e476f2e4242bbf6be6a4db89297ad7";
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function(){
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        document.getElementById("weather").innerHTML=obj.weather[0].description;
+        document.getElementById("location").innerHTML=obj.name;
+        document.getElementById("temp").innerHTML=Math.round(obj.main.temp - 273.15);
+        document.getElementById('icon').src="https://openweathermap.org/img/w/" + obj.weather[0].icon+".png";
+    }
+    if(request.status >= 200 && request.status < 400){
+        var temp=obj.main.temp;
+    }
+    else{
+        console.log("Error. The city data is not currently available.");
+    }
+    request.send();
+
+</script>
+
+</html>
